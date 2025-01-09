@@ -90,8 +90,15 @@ namespace ResourceManagementSystem
                 return;
             }
 
-            _resourceManager.AddResource(new Resource(name, location));
-            UpdateResourceList();
+            try
+            {
+                _resourceManager.AddResource(new Resource(name, location));
+                UpdateResourceList();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void AllocateResource(object sender, EventArgs e)

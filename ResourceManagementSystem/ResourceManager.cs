@@ -17,6 +17,11 @@ namespace ResourceManagementSystem
 
         public void AddResource(Resource resource)
         {
+            if (Resources.Any(r => r.Name == resource.Name && r.Location == resource.Location))
+            {
+                throw new ArgumentException($"Zasób {resource.Name} w lokalizacji {resource.Location} już istnieje.");
+            }
+
             Resources.Add(resource);
         }
 
