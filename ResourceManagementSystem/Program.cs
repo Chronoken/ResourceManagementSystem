@@ -16,7 +16,17 @@ namespace ResourceManagementSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
+        }
+    }
+
+    public class MainForm : Form
+    {
+        public MainForm()
+        {
+            Text = "Resource Management System";
+            Width = 600;
+            Height = 400;
         }
     }
 }
