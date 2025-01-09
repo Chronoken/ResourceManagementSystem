@@ -65,16 +65,88 @@ namespace ResourceManagementSystem
             Controls.Add(_userNameBox);
 
             _addResourceButton = new Button { Text = "Dodaj zasób", Top = 310, Left = 10, Width = 100 };
+            _addResourceButton.Click += AddResource;
             Controls.Add(_addResourceButton);
 
             _allocateButton = new Button { Text = "Przydziel", Top = 310, Left = 120, Width = 100 };
+            _allocateButton.Click += AllocateResource;
             Controls.Add(_allocateButton);
 
             _releaseButton = new Button { Text = "Zwolnij", Top = 310, Left = 230, Width = 100 };
+            _releaseButton.Click += ReleaseResource;
             Controls.Add(_releaseButton);
 
+            UpdateResourceList();
         }
 
+        private void AddResource(object sender, EventArgs e)
+        {
+            var name = _resourceNameBox.Text;
+            var location = _resourceLocationBox.Text;
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(location))
+            {
+                MessageBox.Show("Nazwa i lokalizacja zasobu są wymagane.");
+                return;
+            }
+
+            _resourceManager.AddResource(new Resource(name, location));
+            UpdateResourceList();
+        }
+
+        private void AllocateResource(object sender, EventArgs e)
+        {
+            var name = _resourceNameBox.Text;
+            var user = _userNameBox.Text;
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(user))
+            {
+                MessageBox.Show("Nazwa zasobu i użytkownik są wymagane.");
+                return;
+            }
+
+            try
+            {
+                _resourceManager.AllocateResource(name, user);
+                UpdateResourceList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void ReleaseResource(object sender, EventArgs e)
+        {
+            var name = _resourceNameBox.Text;
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Nazwa zasobu jest wymagana.");
+                return;
+            }
+
+            try
+            {
+                _resourceManager.ReleaseResource(name);
+                UpdateResourceList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void UpdateResourceList()
+        {
+            _resourceList.Items.Clear();
+            foreach (var resource in _resourceManager.Resources)
+            {
+                _resourceList.Items.Add(resource);
+            }
+        }
 
     }
+
 }
+
