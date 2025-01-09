@@ -23,7 +23,7 @@ namespace ResourceManagementSystem
         public void AllocateResource(string resourceName, string user)
         {
             var resource = Resources.FirstOrDefault(r => r.Name == resourceName);
-            if (resource == null) throw new ArgumentException($"Resource {resourceName} not found.");
+            if (resource == null) throw new ArgumentException($"Zasób {resourceName} nie został znaleziony.");
 
             resource.Allocate(user);
         }
@@ -31,7 +31,7 @@ namespace ResourceManagementSystem
         public void ReleaseResource(string resourceName)
         {
             var resource = Resources.FirstOrDefault(r => r.Name == resourceName);
-            if (resource == null) throw new ArgumentException($"Resource {resourceName} not found.");
+            if (resource == null) throw new ArgumentException($"Zasób {resourceName} nie został znaleziony.");
 
             resource.Release();
         }

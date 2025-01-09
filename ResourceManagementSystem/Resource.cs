@@ -24,7 +24,7 @@ namespace ResourceManagementSystem
         {
             if (IsAllocated)
             {
-                throw new InvalidOperationException($"Resource {Name} is already allocated to {AllocatedTo}.");
+                throw new InvalidOperationException($"Zasób {Name} jest już przydzielony użytkownikowi {AllocatedTo}.");
             }
 
             IsAllocated = true;
@@ -35,7 +35,7 @@ namespace ResourceManagementSystem
         {
             if (!IsAllocated)
             {
-                throw new InvalidOperationException($"Resource {Name} is not allocated.");
+                throw new InvalidOperationException($"Zasób {Name} nie jest przydzielony.");
             }
 
             IsAllocated = false;
@@ -44,7 +44,7 @@ namespace ResourceManagementSystem
 
         public override string ToString()
         {
-            var status = IsAllocated ? $"Allocated to {AllocatedTo}" : "Available";
+            var status = IsAllocated ? $"Przydzielony użytkownikowi {AllocatedTo}" : "Dostępny";
             return $"{Name} ({Location}) - {status}";
         }
     }
